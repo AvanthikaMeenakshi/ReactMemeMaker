@@ -34,6 +34,8 @@ class MainPage extends React.Component {
   openImage = (event, obj) => {
     this.setState(prevState => ({
       currentImage: obj.index,
+      toptext: "",
+      bottomtext: "",
       modalIsOpen: !prevState.modalIsOpen
     }));
   }
