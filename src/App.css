@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Impact;
+    src: url('./fonts/impact.ttf');
+}
+
+.meme-gen-modal {
+  max-width: fit-content;
+}
