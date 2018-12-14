@@ -1,12 +1,16 @@
 import React from 'react';
-import Gallery from 'react-photo-gallery';
-import { Modal, ModalHeader, ModalBody, FormGroup, Label } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, FormGroup, Label, Navbar, NavbarBrand } from 'reactstrap';
 
 const photos = [
-  { src: '/images/vict-baby.png', width: 4, height: 3 },
-  { src: '/images/ned.jpeg', width: 5, height: 3 },
-  { src: '/images/devilgirl.jpg', width: 4, height: 3 },
-  { src: '/images/trump.jpg', width: 4, height: 3 }
+  { src: '/images/vict-baby.png' },
+  { src: '/images/ned.jpeg' },
+  { src: '/images/devilgirl.jpg' },
+  { src: '/images/trump.jpg' },
+  { src: '/images/one-does-not.jpg' },
+  { src: '/images/dank.png' },
+  { src: '/images/boy.png' },
+  { src: '/images/sad.png' },
+  { src: '/images/wolf.png' }
 ];
 
 const initialState = {
@@ -30,9 +34,9 @@ class MainPage extends React.Component {
     };
   }
 
-  openImage = (event, obj) => {
+  openImage = (index) => {
     this.setState(prevState => ({
-      currentImage: obj.index,
+      currentImage: index,
       modalIsOpen: !prevState.modalIsOpen,
       ...initialState
     }));
@@ -113,11 +117,34 @@ class MainPage extends React.Component {
     const textStyle = {
       fontFamily: "Impact",
       fontSize: "50px",
+      fill: "#FFF",
+      stroke: "#000",
       userSelect: "none"
     }
+
     return (
       <div>
-        <Gallery photos={photos} onClick={this.openImage} />
+        <Navbar>
+          <NavbarBrand href="/">Make-a-Meme</NavbarBrand>
+        </Navbar>
+        <div className="container">
+            <div className="row">
+            {photos.map((image, index) => (
+              <div key={image.src} className="col-md-3 image-holder">
+                <img
+                  style={{
+                    width: "100%",
+                    cursor: "pointer",
+                    height: "100%"
+                  }}
+                  src={image.src}
+                  onClick={() => this.openImage(index)}
+                  role="presentation"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
         <Modal className="meme-gen-modal" isOpen={this.state.modalIsOpen}>
           <ModalHeader toggle={this.toggle}>Make-a-Meme</ModalHeader>
           <ModalBody>
@@ -155,15 +182,17 @@ class MainPage extends React.Component {
                   {this.state.bottomtext}
               </text>
             </svg>
+            <div className="meme-form">
+              <FormGroup>
+                <Label for="toptext">Top Text</Label>
+                <input className="form-control" type="text" name="toptext" id="toptext" placeholder="Add text to the top" onChange={this.changeText} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="bottomtext">Bottom Text</Label>
+                <input className="form-control" type="text" name="bottomtext" id="bottomtext" placeholder="Add text to the bottom" onChange={this.changeText} />
+              </FormGroup>
+            </div>
           </ModalBody>
-          <FormGroup>
-            <Label for="toptext">Top Text</Label>
-            <input type="text" name="toptext" id="toptext" placeholder="Add text to the top" onChange={this.changeText} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="bottomtext">Bottom Text</Label>
-            <input type="text" name="bottomtext" id="bottomtext" placeholder="Add text to the bottom" onChange={this.changeText} />
-          </FormGroup>
         </Modal>
       </div>
     )

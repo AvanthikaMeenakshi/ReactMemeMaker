@@ -1,8 +1,49 @@
 @font-face {
-    font-family: Impact;
-    src: url('./fonts/impact.ttf');
+  font-family: Impact;
+  src: url('./fonts/impact.ttf');
+}
+
+html, body {
+  height: 100%;
+  background: #424242;
+}
+
+.navbar {
+  background: #1c1e21;
+  margin-bottom: 15px;
+  border: 2px solid #000;
+}
+
+.navbar-brand {
+  color: #FFFFFF;
 }
 
 .meme-gen-modal {
   max-width: fit-content;
+}
+
+.modal-body {
+  display: flex;
+}
+
+.meme-form {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 1px solid #e9ecef;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.image-holder {
+  height: 200px;
+  padding: 0;
+  margin: 7.5px;
+  border: 2px solid #1f1d1d;
+}
+
+.row {
+  margin: 0 auto;
+  justify-content: center;
 }
