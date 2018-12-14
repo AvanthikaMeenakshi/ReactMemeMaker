@@ -12,8 +12,8 @@ const photos = [
 const initialState = {
   toptext: "",
   bottomtext: "",
-  // isTopDragging: false,
-  // isBottomDragging: false,
+  isTopDragging: false,
+  isBottomDragging: false,
   topY: "10%",
   topX: "50%",
   bottomX: "50%",
