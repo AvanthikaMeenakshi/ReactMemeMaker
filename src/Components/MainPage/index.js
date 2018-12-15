@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalHeader, ModalBody, FormGroup, Label, Navbar, NavbarBrand } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, FormGroup, Label, NavbarBrand } from 'reactstrap';
 
 const photos = [
   { src: '/images/vict-baby.png' },
@@ -10,7 +10,12 @@ const photos = [
   { src: '/images/dank.png' },
   { src: '/images/boy.png' },
   { src: '/images/sad.png' },
-  { src: '/images/wolf.png' }
+  { src: '/images/wolf.png' },
+  { src: '/images/fry.jpg' },
+  { src: '/images/jobs.jpg' },
+  { src: '/images/phone.jpg' },
+  { src: '/images/oldie.png' }
+
 ];
 
 const initialState = {
@@ -124,23 +129,32 @@ class MainPage extends React.Component {
 
     return (
       <div>
-        <Navbar>
-          <NavbarBrand href="/">Make-a-Meme</NavbarBrand>
-        </Navbar>
-        <div className="container">
-            <div className="row">
+        <div className="main-content">
+          <div className="sidebar">
+            <NavbarBrand href="/">Make-a-Meme</NavbarBrand>
+            <p>
+              This is a fun 5 hour project inspired by imgur. Built with React and Bootstrap.
+            </p>
+            <p>
+              You can add top and bottom text to a meme-template, move the text around and can save the image by downloading it.
+            </p>
+          </div>
+          <div className="content">
             {photos.map((image, index) => (
-              <div key={image.src} className="col-md-3 image-holder">
+              <div className="image-holder" key={image.src}>
+                <span className="meme-top-caption">Top text</span>
                 <img
                   style={{
                     width: "100%",
                     cursor: "pointer",
                     height: "100%"
                   }}
+                  alt={index}
                   src={image.src}
                   onClick={() => this.openImage(index)}
                   role="presentation"
                 />
+              <span className="meme-bottom-caption">Bottom text</span>
               </div>
             ))}
           </div>
@@ -191,6 +205,7 @@ class MainPage extends React.Component {
                 <Label for="bottomtext">Bottom Text</Label>
                 <input className="form-control" type="text" name="bottomtext" id="bottomtext" placeholder="Add text to the bottom" onChange={this.changeText} />
               </FormGroup>
+              <button className="btn btn-primary">Download Meme!</button>
             </div>
           </ModalBody>
         </Modal>
