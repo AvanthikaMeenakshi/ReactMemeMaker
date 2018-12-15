@@ -14,8 +14,15 @@ const photos = [
   { src: '/images/fry.jpg' },
   { src: '/images/jobs.jpg' },
   { src: '/images/phone.jpg' },
-  { src: '/images/oldie.png' }
-
+  { src: '/images/oldie.png' },
+  { src: '/images/image.png' },
+  { src: '/images/doubt.png' },
+  { src: '/images/crying.png' },
+  { src: '/images/sponge.png' },
+  { src: '/images/dog.png' },
+  { src: '/images/frust.png' },
+  { src: '/images/web.png' },
+  { src: '/images/penguin.png' }
 ];
 
 const initialState = {
