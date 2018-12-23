@@ -129,6 +129,7 @@ class MainPage extends React.Component {
     const textStyle = {
       fontFamily: "Impact",
       fontSize: "50px",
+      textTransform: "uppercase",
       fill: "#FFF",
       stroke: "#000",
       userSelect: "none"
