@@ -141,7 +141,7 @@ class MainPage extends React.Component {
           <div className="sidebar">
             <NavbarBrand href="/">Make-a-Meme</NavbarBrand>
             <p>
-              This is a fun 5 hour project inspired by imgur. Built with React and Bootstrap.
+              This is a fun 5 hour project inspired by imgur. Built with React.
             </p>
             <p>
               You can add top and bottom text to a meme-template, move the text around and can save the image by downloading it.
