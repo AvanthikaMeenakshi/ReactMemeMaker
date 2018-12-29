@@ -42,14 +42,20 @@ class MainPage extends React.Component {
     this.state = {
       currentImage: 0,
       modalIsOpen: false,
+      currentImagebase64: null,
       ...initialState
     };
   }
 
   openImage = (index) => {
+    const image = photos[index];
+    const base_image = new Image();
+    base_image.src = image.src;
+    const base64 = this.getBase64Image(base_image);
     this.setState(prevState => ({
       currentImage: index,
       modalIsOpen: !prevState.modalIsOpen,
+      currentImagebase64: base64,
       ...initialState
     }));
   }
@@ -121,16 +127,16 @@ class MainPage extends React.Component {
 
   convertSvgToImage = () => {
     const svg = this.svgRef;
-    const svgData = new XMLSerializer().serializeToString(svg);
+    let svgData = new XMLSerializer().serializeToString(svg);
     const canvas = document.createElement("canvas");
+    canvas.setAttribute("id", "canvas");
     const svgSize = svg.getBoundingClientRect();
     canvas.width = svgSize.width;
     canvas.height = svgSize.height;
-    const ctx = canvas.getContext("2d");
     const img = document.createElement("img");
     img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
     img.onload = function() {
-      ctx.drawImage(img, 0, 0);
+      canvas.getContext("2d").drawImage(img, 0, 0);
       const canvasdata = canvas.toDataURL("image/png");
       const a = document.createElement("a");
       a.download = "meme.png";
@@ -138,6 +144,16 @@ class MainPage extends React.Component {
       document.body.appendChild(a);
       a.click();
     };
+  }
+
+  getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL;
   }
 
   render() {
@@ -200,7 +216,7 @@ class MainPage extends React.Component {
               xmlnsXlink="http://www.w3.org/1999/xlink">
               <image
                 ref={el => { this.imageRef = el }}
-                xlinkHref={`${photos[this.state.currentImage].src}`}
+                xlinkHref={this.state.currentImagebase64}
                 height={newHeight}
                 width={newWidth}
               />
