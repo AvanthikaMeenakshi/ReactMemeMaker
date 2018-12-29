@@ -119,6 +119,27 @@ class MainPage extends React.Component {
     });
   }
 
+  convertSvgToImage = () => {
+    const svg = this.svgRef;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const svgSize = svg.getBoundingClientRect();
+    canvas.width = svgSize.width;
+    canvas.height = svgSize.height;
+    const ctx = canvas.getContext("2d");
+    const img = document.createElement("img");
+    img.setAttribute("src", "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData))));
+    img.onload = function() {
+      ctx.drawImage(img, 0, 0);
+      const canvasdata = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.download = "meme.png";
+      a.href = canvasdata;
+      document.body.appendChild(a);
+      a.click();
+    };
+  }
+
   render() {
     const image = photos[this.state.currentImage];
     const base_image = new Image();
@@ -172,12 +193,14 @@ class MainPage extends React.Component {
           <ModalBody>
             <svg
               width={newWidth}
+              id="svg_ref"
               height={newHeight}
+              ref={el => { this.svgRef = el }}
               xmlns="http://www.w3.org/2000/svg"
-              xmlnshlink="http://www.w3.org/1999/xlink">
+              xmlnsXlink="http://www.w3.org/1999/xlink">
               <image
                 ref={el => { this.imageRef = el }}
-                xlinkHref={photos[this.state.currentImage].src}
+                xlinkHref={`${photos[this.state.currentImage].src}`}
                 height={newHeight}
                 width={newWidth}
               />
@@ -213,7 +236,7 @@ class MainPage extends React.Component {
                 <Label for="bottomtext">Bottom Text</Label>
                 <input className="form-control" type="text" name="bottomtext" id="bottomtext" placeholder="Add text to the bottom" onChange={this.changeText} />
               </FormGroup>
-              <button className="btn btn-primary">Download Meme!</button>
+              <button onClick={() => this.convertSvgToImage()} className="btn btn-primary">Download Meme!</button>
             </div>
           </ModalBody>
         </Modal>
